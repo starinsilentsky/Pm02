@@ -1,0 +1,404 @@
+<!doctype html>
+<html lang="ru">
+  <head>
+    <meta charset="UTF-8" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1.0, user-scalable=yes"
+    />
+    <title>Мемориум · Музей интернет-мемов</title>
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css"
+    />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,300;14..32,400;14..32,500;14..32,600;14..32,700&family=Space+Grotesk:wght@400;500;600&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="style.css" />
+    <link rel="stylesheet" href="auth-styles.css" />
+  </head>
+  <body>
+    <div class="site-header">
+      <div class="container">
+        <div class="navbar">
+          <div class="logo">
+            <a href="#">🐱 МЕМОРИУМ <span>· музей мемов</span></a>
+          </div>
+          <div class="search-auth">
+            <div class="search-box">
+              <input
+                type="text"
+                id="globalSearch"
+                placeholder="Поиск по мемам, котам, эпохам..."
+              />
+              <button id="searchBtn"><i class="fas fa-search"></i></button>
+            </div>
+            <button class="auth-btn" id="authBtn">
+              <i class="far fa-user-circle"></i> Войти
+            </button>
+          </div>
+        </div>
+      </div>
+      <div class="container">
+        <ul class="nav-tabs">
+          <li><a href="#" data-section="home" class="active">🏠 Главная</a></li>
+          <li><a href="#" data-section="gallery">🖼 Галерея</a></li>
+          <li><a href="#" data-section="timeline">📅 Хронология</a></li>
+          <li><a href="#" data-section="archive">🗄 Архив</a></li>
+          <li><a href="#" data-section="interactive">🎮 Интерактив</a></li>
+          <li><a href="#" data-section="blog">📝 Блог</a></li>
+        </ul>
+      </div>
+    </div>
+
+    <main class="container">
+      <div id="homeSection">
+        <section style="padding-top: 32px">
+          <div
+            style="
+              background: linear-gradient(145deg, #f5ede4, #fff7f0);
+              border-radius: 48px;
+              padding: 48px 32px;
+              text-align: center;
+            "
+          >
+            <h1 style="font-size: 3rem">🤡 Музей интернет-мемов</h1>
+            <p style="font-size: 1.2rem; max-width: 700px; margin: 20px auto">
+              От «Бу, испугался?» до Grumpy Cat — 26+ легендарных котов и мемов.
+              Исследуй, голосуй, создавай.
+            </p>
+            <div style="display: flex; gap: 16px; justify-content: center">
+              <button class="primary" id="exploreGalleryBtn">
+                В галерею →
+              </button>
+              <button
+                class="primary"
+                style="background: #8b694e"
+                id="randomMemeBtn"
+              >
+                🎲 Случайный мем
+              </button>
+            </div>
+          </div>
+        </section>
+        <section>
+          <div class="section-title">
+            <i class="fas fa-fire"></i> Популярные мемы недели
+          </div>
+          <div class="card-grid" id="featuredMemesGrid"></div>
+        </section>
+        <section>
+          <div class="section-title">
+            <i class="fas fa-clock"></i> Новая эпоха: коты 2024
+          </div>
+          <p>
+            Искусственный интеллект, кукольные коты и танцующие тектоник — мемы
+            становятся сложнее. Узнай историю каждого.
+          </p>
+        </section>
+      </div>
+
+      <div id="gallerySection" style="display: none">
+        <section>
+          <div class="section-title">
+            <i class="fas fa-images"></i> Галерея мемов
+          </div>
+          <div class="filter-bar" id="filterEpochBar">
+            <button class="filter-btn active" data-epoch="all">
+              Все эпохи
+            </button>
+            <button class="filter-btn" data-epoch="2000s">
+              2000-е — Классика
+            </button>
+            <button class="filter-btn" data-epoch="2010s">
+              2010-е — Виральность
+            </button>
+            <button class="filter-btn" data-epoch="2020s">
+              2020-е — TikTok эра
+            </button>
+          </div>
+          <div class="card-grid" id="galleryGrid"></div>
+        </section>
+      </div>
+
+      <div id="timelineSection" style="display: none">
+        <section>
+          <div class="section-title">
+            <i class="fas fa-timeline"></i> Хронология мем-эпох
+          </div>
+          <div class="timeline-era" id="eraMap"></div>
+          <div
+            class="context-block"
+            id="eraContext"
+            style="display: none"
+          ></div>
+        </section>
+      </div>
+
+      <div id="archiveSection" style="display: none">
+        <section>
+          <div class="section-title">
+            <i class="fas fa-archive"></i> Архив мемов & теги
+          </div>
+          <div class="tag-cloud" id="tagCloud"></div>
+          <div class="rare-grid" id="rareMemesList"></div>
+          <div class="submit-card">
+            <h3><i class="fas fa-plus-circle"></i> Предложить мем</h3>
+            <p>Знаешь редкий мем, которого нет в музее? Заполни форму.</p>
+            <button class="primary" id="proposeMemeBtn">
+              📤 Отправить заявку
+            </button>
+            <p style="margin-top: 12px; font-size: 0.8rem">
+              (шаблон: после проверки добавим в коллекцию)
+            </p>
+          </div>
+        </section>
+      </div>
+
+      <div id="interactiveSection" style="display: none">
+        <section>
+          <div class="section-title">
+            <i class="fas fa-gamepad"></i> Интерактив
+          </div>
+          <div class="quiz-area">
+            <h3>🧠 Квиз "Угадай мем"</h3>
+            <p id="quizQuestion">
+              Какой кот стал символом философского недоумения с вопросом "А?"?
+            </p>
+            <div id="quizOptions"></div>
+            <button class="primary" id="nextQuizBtn">Следующий вопрос</button>
+            <p id="quizFeedback" style="margin-top: 12px"></p>
+          </div>
+          <div class="generator-area">
+            <h3>🎨 Генератор мемов (шаблон)</h3>
+            <p>Выбери шаблон: "Грустный банановый кот" или "Спорящие коты"</p>
+            <input
+              type="text"
+              placeholder="Верхний текст"
+              id="memeTopText"
+              style="
+                padding: 10px;
+                margin: 8px;
+                border-radius: 30px;
+                border: 1px solid #ccc;
+              "
+            />
+            <input
+              type="text"
+              placeholder="Нижний текст"
+              id="memeBottomText"
+              style="padding: 10px; margin: 8px; border-radius: 30px"
+            />
+            <button class="primary" id="generateMemeBtn">
+              Сгенерировать превью
+            </button>
+            <div
+              id="memePreview"
+              style="
+                margin-top: 20px;
+                background: #ddd;
+                border-radius: 28px;
+                padding: 20px;
+                text-align: center;
+              "
+            >
+              ✨ Здесь будет ваш мем
+            </div>
+          </div>
+          <div class="vote-area">
+            <h3>🏆 Голосование: лучший котомем 2024</h3>
+            <div class="vote-option" id="voteWidget"></div>
+          </div>
+        </section>
+      </div>
+
+      <div id="blogSection" style="display: none">
+        <section>
+          <div class="section-title">
+            <i class="fas fa-blog"></i> Блог & лекции
+          </div>
+          <div class="blog-card">
+            <h3>🎬 Разбор мема: «Кот спрашивает "А?"»</h3>
+            <p>
+              Почему чёрно-белый кот Бендер стал символом вселенского
+              недоумения? Разбираем вирусный звук «А?», превращение обычного
+              мяуканья в мем и феномен философского кота, покорившего TikTok.
+            </p>
+            <a
+              href="https://www.youtube.com/watch?v=-saCnSihpL8"
+              target="_blank"
+              rel="noopener noreferrer"
+              style="color: #bc5a2c"
+            >
+              🎥 Смотреть разбор на YouTube →
+            </a>
+          </div>
+          <div class="blog-card">
+            <h3>
+              📰 Статья: «Смысловые галлюцинации: как нейросети сначала
+              захватили интернет, а потом превратили его в цирк»
+            </h3>
+            <p>Лекция 5 мин. Как нейросети изменили интернет-юмор.</p>
+            <a
+              href="https://www.mvideo.ru/blog/pomogaem-razobratsya/smyslovye-gallyuczinaczii-kak-nejroseti-snachala-zahvatili-internet-a-potom-prevratili-ego-v-czirk"
+              target="_blank"
+              rel="noopener noreferrer"
+              style="color: #bc5a2c"
+            >
+              📖 Читать статью на Mvideo →
+            </a>
+          </div>
+
+          <div class="blog-card">
+            <h3>
+              📰 Статья: «Популярные мемы, которые помогают лучше понимать
+              подростков»
+            </h3>
+            <p>
+              Мемы стали неотъемлемой частью культуры. Они отражают, что
+              происходит в мире, и становятся инструментом для обсуждения важных
+              тем, помогают подросткам выражать индивидуальность и эмоции через
+              юмор. В статье рассказали, как понимание мемов поможет найти
+              контакт с ребенком.
+            </p>
+            <a
+              href="https://ibb.co/5hvJ3LpY"
+              target="_blank"
+              rel="noopener noreferrer"
+              style="color: #bc5a2c"
+            >
+              📖 Читать статью на Фоксфорд →
+            </a>
+          </div>
+
+          <div class="blog-card">
+            <h3>📰 Статья: «Интересные факты о мемах: а вы знали?..»</h3>
+            <p>
+              «Интересные факты про мемы? А что может быть интереснее в мемах,
+              чем сами мемы?» – удивится кто-то. И мы полностью разделяем такой
+              подход! Именно поэтому мы интересные факты про мемы будем изучать
+              в первую очередь на примере мемов.
+            </p>
+            <a
+              href="https://www.youtube.com/watch?v=dQw4w9WgXcQ"
+              target="_blank"
+              rel="noopener noreferrer"
+              style="color: #bc5a2c"
+            >
+              📖 Читать статью на Фоксфорд →
+            </a>
+          </div>
+
+          <div class="glossary-list" id="glossaryList"></div>
+        </section>
+      </div>
+    </main>
+
+    <footer>
+      <div class="container">
+        <p>
+          © МЕМОРИУМ — музей мемов и интернет-культуры. Все медиа-материалы
+          используются в образовательных целях.
+        </p>
+        <p style="margin-top: 10px">
+          <i class="fab fa-twitter"></i> <i class="fab fa-tiktok"></i>
+          <i class="fab fa-telegram"></i> @meme_museum
+        </p>
+      </div>
+    </footer>
+
+    <div id="memeModal" class="meme-detail-modal">
+      <div class="modal-content">
+        <span class="close-modal">&times;</span>
+        <h2 id="modalTitle">Название мема</h2>
+        <div
+          id="modalImg"
+          style="
+            background: #e2d8cf;
+            border-radius: 20px;
+            height: 160px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 15px 0;
+          "
+        >
+          🐈 🎞️
+        </div>
+        <p id="modalDesc">Описание и история...</p>
+        <h4>Похожие мемы</h4>
+        <div
+          id="relatedMemesList"
+          style="display: flex; gap: 12px; flex-wrap: wrap"
+        ></div>
+      </div>
+    </div>
+
+    <div class="auth-overlay" id="authOverlay">
+      <div class="auth-modal">
+        <button class="auth-close" id="authClose">&times;</button>
+        <h2>&#128049; Мемориум</h2>
+        <div class="auth-tabs">
+          <button class="auth-tab-btn active" data-tab="login">Войти</button>
+          <button class="auth-tab-btn" data-tab="register">Регистрация</button>
+        </div>
+        <form class="auth-form" id="loginForm">
+          <input
+            type="text"
+            id="loginUsername"
+            placeholder="Имя пользователя"
+            autocomplete="username"
+            required
+          />
+          <input
+            type="password"
+            id="loginPassword"
+            placeholder="Пароль"
+            autocomplete="current-password"
+            required
+          />
+          <div class="auth-error" id="loginError"></div>
+          <button type="submit" class="auth-submit-btn" id="loginBtn">
+            Войти
+          </button>
+        </form>
+        <form class="auth-form" id="registerForm" style="display: none">
+          <input
+            type="text"
+            id="regUsername"
+            placeholder="Имя пользователя"
+            autocomplete="username"
+            required
+          />
+          <input
+            type="email"
+            id="regEmail"
+            placeholder="Email"
+            autocomplete="email"
+            required
+          />
+          <input
+            type="text"
+            id="regDisplayName"
+            placeholder="Отображаемое имя (необязательно)"
+          />
+          <input
+            type="password"
+            id="regPassword"
+            placeholder="Пароль"
+            autocomplete="new-password"
+            required
+          />
+          <div class="auth-error" id="registerError"></div>
+          <button type="submit" class="auth-submit-btn" id="registerBtn">
+            Создать аккаунт
+          </button>
+        </form>
+      </div>
+    </div>
+
+    <script src="auth-script.js"></script>
+    <script src="script.js"></script>
+  </body>
+</html>
