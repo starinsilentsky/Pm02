@@ -1,0 +1,65 @@
+<link rel="stylesheet" href="auth-styles.css" />
+
+<div class="auth-overlay" id="authOverlay">
+  <div class="auth-modal">
+    <button class="auth-close" id="authClose">&times;</button>
+    <h2>🐱 Мемориум</h2>
+
+    <div class="auth-tabs">
+      <button class="auth-tab-btn active" data-tab="login">Войти</button>
+      <button class="auth-tab-btn" data-tab="register">Регистрация</button>
+    </div>
+
+    <form class="auth-form" id="loginForm">
+      <input
+        type="text"
+        id="loginUsername"
+        placeholder="Имя пользователя"
+        autocomplete="username"
+        required
+      />
+      <input
+        type="password"
+        id="loginPassword"
+        placeholder="Пароль"
+        autocomplete="current-password"
+        required
+      />
+      <div class="auth-error" id="loginError"></div>
+      <button type="submit" class="auth-submit-btn" id="loginBtn">Войти</button>
+    </form>
+
+    <form class="auth-form" id="registerForm" style="display: none">
+      <input
+        type="text"
+        id="regUsername"
+        placeholder="Имя пользователя"
+        autocomplete="username"
+        required
+      />
+      <input
+        type="email"
+        id="regEmail"
+        placeholder="Email"
+        autocomplete="email"
+        required
+      />
+      <input
+        type="text"
+        id="regDisplayName"
+        placeholder="Отображаемое имя (необязательно)"
+      />
+      <input
+        type="password"
+        id="regPassword"
+        placeholder="Пароль"
+        autocomplete="new-password"
+        required
+      />
+      <div class="auth-error" id="registerError"></div>
+      <button type="submit" class="auth-submit-btn" id="registerBtn">
+        Создать аккаунт
+      </button>
+    </form>
+  </div>
+</div>
