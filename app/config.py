@@ -1,24 +1,19 @@
 from pydantic_settings import BaseSettings
 from functools import lru_cache
 
+
 class Settings(BaseSettings):
-    DATABASE_URL: str = "postgresql+asyncpg://meme_user:meme_pass@localhost/meme_museum"
-
+    DATABASE_URL: str = "postgresql+asyncpg://meme_user:password@localhost:5432/meme_museum"
     REDIS_URL: str = "redis://localhost:6379/0"
-
     ELASTICSEARCH_URL: str = "http://localhost:9200"
-
-    SECRET_KEY: str
+    SECRET_KEY: str = "change-me-in-production"
     ALGORITHM: str = "HS256"
     ACCESS_TOKEN_EXPIRE_MINUTES: int = 60 * 24
+    MEDIA_UPLOAD_PATH: str = "uploads"
 
-    MEDIA_UPLOAD_PATH: str = "./uploads"
-    MAX_FILE_SIZE: int = 20 * 1024 * 1024
+    class Config:
+        env_file = ".env"
 
-    DEFAULT_PAGE_SIZE: int = 24
-    MAX_PAGE_SIZE: int = 100
-
-    model_config = {"env_file": ".env"}
 
 @lru_cache()
 def get_settings() -> Settings:
